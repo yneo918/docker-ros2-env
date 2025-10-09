@@ -1,0 +1,20 @@
+services:
+  ros2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${ROS2_CONTAINER_NAME}
+    user: "${ROS2_UID}:${ROS2_GID}"
+    env_file:
+      - .env
+    environment:
+      DISPLAY: ${DISPLAY:-}
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+    volumes:
+      - ./workspace:/workspaces/host_ws:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    network_mode: host
+    stdin_open: true
+    tty: true
