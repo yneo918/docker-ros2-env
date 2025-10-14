@@ -14,6 +14,8 @@ fi
 
 CONTAINER_NAME=${ROS2_CONTAINER_NAME:-ros2_dev}
 ROS_DISTRO_NAME=${ROS_DISTRO:-jazzy}
+TARGET_UID=${ROS2_UID:-$(id -u)}
+TARGET_GID=${ROS2_GID:-$(id -g)}
 
 if ! status=$(docker container inspect -f '{{.State.Status}}' "${CONTAINER_NAME}" 2>/dev/null); then
   echo "Container '${CONTAINER_NAME}' not found. Start it with 'docker compose up -d ros2' first." >&2
@@ -25,4 +27,7 @@ if [ "${status}" != "running" ]; then
   exit 1
 fi
 
-exec docker exec -it "${CONTAINER_NAME}" bash -lc "source /opt/ros/${ROS_DISTRO_NAME}/setup.bash; if [ -f /workspaces/host_ws/install/setup.bash ]; then source /workspaces/host_ws/install/setup.bash; fi; exec bash"
+exec docker exec -it \
+  --user "${TARGET_UID}:${TARGET_GID}" \
+  "${CONTAINER_NAME}" \
+  bash -lc "source /opt/ros/${ROS_DISTRO_NAME}/setup.bash; if [ -f /workspaces/host_ws/install/setup.bash ]; then source /workspaces/host_ws/install/setup.bash; fi; exec bash"

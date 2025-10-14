@@ -4,7 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: ${ROS2_CONTAINER_NAME}
-    user: "${ROS2_UID}:${ROS2_GID}"
     env_file:
       - .env
     environment:

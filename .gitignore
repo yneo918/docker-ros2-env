@@ -1,0 +1,25 @@
+# ROS 2 workspace (keep sentinel only)
+workspace/*
+!workspace/.gitkeep
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Local overrides
+.env.local

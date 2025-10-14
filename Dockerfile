@@ -14,6 +14,10 @@ RUN apt-get update \
        build-essential \
        git \
        ros-${ROS_DISTRO}-demo-nodes-cpp \
+       ros-${ROS_DISTRO}-xacro \
+       ros-${ROS_DISTRO}-rviz2 \
+       ros-${ROS_DISTRO}-joy \
+       gosu \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies specified by the host project
